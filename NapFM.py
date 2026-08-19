@@ -4,7 +4,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import pytorch_lightning as pl
-from AdamMuon import AdamMuon
+from AdaMuon import AdaMuon
 
 
 # =============================================================================
@@ -549,4 +549,4 @@ class SleepFoundationModel(pl.LightningModule):
         return self._shared_step(batch, "val")
 
     def configure_optimizers(self):
-        return AdamMuon(self.parameters(), lr=self.lr, weight_decay=self.weight_decay)
+        return AdaMuon(self.parameters(), lr=self.lr, weight_decay=self.weight_decay)
