@@ -5,5 +5,5 @@ Feel free to use and build upon this work — I hope it proves useful for your p
 
 This model uses a spectrogram based residual encoder:
 
-![PSG Prognostic Model](images/architecture.png)
+![PSG Prognostic Model](architecture_schematic.pdf)
 
