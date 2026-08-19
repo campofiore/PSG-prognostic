@@ -10,12 +10,12 @@ import numpy as np
 from typing import Dict, List, Optional
 from collections import defaultdict
 from sklearn.metrics import roc_auc_score, average_precision_score
-from torch.optim.lr_scheduler import CosineAnnealingLR
+
 from torchsurv.loss.cox import neg_partial_log_likelihood
 from torchsurv.metrics.cindex import ConcordanceIndex
 
-from NapFM3 import *               # provides SleepFoundationModel (+ PSGEncoder etc.)
-from AdamMuon import AdamMuon
+from NapFM import *               # provides SleepFoundationModel (+ PSGEncoder etc.)
+from AdaMuon import AdaMuon
 
 
 # =========================================================
@@ -648,11 +648,6 @@ class CoxPHDownstreamLightning(pl.LightningModule):
         
         return loss
 
-    # clip + scrub non-finite grads BEFORE the optimizer step. This hook fires
-    # under automatic optimization regardless of the optimizer (AdamMuon included),
-    # which Trainer(gradient_clip_val=...) may NOT for a custom optimizer.
-
-
 
     # ---------- validation (held-out set; bf16-safe) ----------
     def validation_step(self, batch, batch_idx):
@@ -708,4 +703,4 @@ class CoxPHDownstreamLightning(pl.LightningModule):
         param_groups = [{"params": head_params, "lr": self.hparams.lr_head}]
         if backbone_params:        # empty when use_lora=False
             param_groups.append({"params": backbone_params, "lr": self.hparams.lr_backbone})
-        return AdamMuon(param_groups, weight_decay=self.hparams.weight_decay)
+        return AdaMuon(param_groups, weight_decay=self.hparams.weight_decay)
