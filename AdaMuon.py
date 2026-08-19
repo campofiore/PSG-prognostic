@@ -64,7 +64,7 @@ class Muon(Optimizer):
         return loss
 
 
-class AdamMuon(Optimizer):
+class AdaMuon(Optimizer):
     def __init__(
         self,
         params: list[torch.Tensor],
